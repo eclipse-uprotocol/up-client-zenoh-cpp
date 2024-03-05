@@ -1,4 +1,4 @@
-# Copyright (c) 2023 General Motors GTO LLC
+# Copyright (c) 2024 General Motors GTO LLC
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -37,10 +37,7 @@ add_definitions(-DSPDLOG_FMT_EXTERNAL)
 set(SRC_FILES         
     src/zenohUTransport.cpp
     src/zenohRpcClient.cpp
-    src/zenohSessionManager.cpp
-    src/messageBuilder.cpp
-    src/messageParser.cpp
-    )
+    src/zenohSessionManager.cpp)
 
 add_library(${PROJECT_NAME} ${SRC_FILES})
 add_library(up-client-zenoh-cpp::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

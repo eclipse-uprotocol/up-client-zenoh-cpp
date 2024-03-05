@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 General Motors GTO LLC
+ * Copyright (c) 2024 General Motors GTO LLC
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,7 +18,7 @@
  * specific language governing permissions and limitations
  * under the License.
  * SPDX-FileType: SOURCE
- * SPDX-FileCopyrightText: 2023 General Motors GTO LLC
+ * SPDX-FileCopyrightText: 2024 General Motors GTO LLC
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -29,6 +29,7 @@
 #include <unordered_map>
 #include <atomic>
 #include <zenoh.h>
+#include <up-cpp/transport/datamodel/UPayload.h>
 #include <up-cpp/transport/UTransport.h>
 
 using namespace uprotocol::v1;
@@ -126,8 +127,8 @@ class ZenohUTransport : public UTransport {
                             const UPayload &payload,
                             const UAttributes &attributes) noexcept;
 
-        UCode mapEncoding(const USerializationHint &encodingIn, 
-                          z_encoding_t &encodingOut) noexcept;
+        UCode mapEncoding(const UPayloadFormat &payloadFormat, 
+                          z_encoding_t &encoding) noexcept;
 
         /* zenoh session handle*/
         z_owned_session_t session_;

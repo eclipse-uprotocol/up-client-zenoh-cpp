@@ -26,13 +26,11 @@
 #define _ZENOH_SESSION_MANAGER_H_
 
 #include <atomic>
+#include <optional>
 #include <zenoh.h>
-#include <up-cpp/transport/datamodel/UPayload.h>
-#include <up-cpp/transport/datamodel/UAttributes.h>
 #include <up-core-api/ustatus.pb.h>
 
 using namespace std;
-using namespace uprotocol::utransport;
 using namespace uprotocol::v1;
 
 struct ZenohSessionManagerConfig

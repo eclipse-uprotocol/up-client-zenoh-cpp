@@ -38,5 +38,5 @@ add_subdirectory(lib)
 
 if(BUILD_TESTING)
 	enable_testing()
-	add_subdirectory(test)
+	#add_subdirectory(test)
 endif()

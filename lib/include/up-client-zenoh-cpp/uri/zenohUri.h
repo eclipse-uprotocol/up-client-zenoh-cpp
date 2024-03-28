@@ -22,25 +22,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef _MESSAGE_COMMON_H_
-#define _MESSAGE_COMMON_H_
+#ifndef _ZENOH_URI_
+#define _ZENOH_URI_
 
-enum class Tag
-{
-    UURI = 0,
-    ID = 1, 
-    TYPE = 2,
-    PRIORITY = 3,
-    TTL = 4,
-    TOKEN = 5,
-    HINT = 6,
-    SINK = 7,
-    PLEVEL = 8,
-    COMMSTATUS = 9,
-    REQID = 10,
-    PAYLOAD = 11, 
+#include <string>
+#include <up-core-api/uri.pb.h>
 
-    UNDEFINED = 12
-};
+namespace uprotocol::uri {
 
-#endif /* _MESSAGE_COMMON_H_ */
+/// @returns Empty string if unable to serialize the UUri, otherwise UUri
+///          converted to a Zenoh key string
+[[ nodiscard ]] std::string toZenohKeyString(const uprotocol::v1::UUri &u_uri);
+
+} // namespace uprotocol::tools
+
+#endif /*_ZENOH_URI_*/

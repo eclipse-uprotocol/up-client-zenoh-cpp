@@ -46,10 +46,13 @@ class UpClientZenoh(ConanFile):
             self.requires("up-cpp/0.1.1-dev")
             if self.options.zenoh_package:
                 self.requires("zenohc/cci.20240213")
+        if self.options.build_cross_compiling :
+            self.requires("zenohc/cci.20240213")
 
     def generate(self):
         tc = CMakeToolchain(self)
         tc.variables["BUILD_TESTING"] = self.options.build_testing
+        tc.variables["CROSS_COMPILE"] = self.options.build_cross_compiling
         tc.generate()
 
     def build(self):

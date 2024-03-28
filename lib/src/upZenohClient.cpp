@@ -22,25 +22,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef _MESSAGE_COMMON_H_
-#define _MESSAGE_COMMON_H_
+#include <up-client-zenoh-cpp/client/upZenohClient.h>
+#include <up-core-api/ustatus.pb.h>
 
-enum class Tag
-{
-    UURI = 0,
-    ID = 1, 
-    TYPE = 2,
-    PRIORITY = 3,
-    TTL = 4,
-    TOKEN = 5,
-    HINT = 6,
-    SINK = 7,
-    PLEVEL = 8,
-    COMMSTATUS = 9,
-    REQID = 10,
-    PAYLOAD = 11, 
+using namespace uprotocol::v1;
+using namespace uprotocol::client;
 
-    UNDEFINED = 12
-};
+std::shared_ptr<UpZenohClient> UpZenohClient::instance(void) noexcept {
+    static std::weak_ptr<UpZenohClient> w_handle;
 
-#endif /* _MESSAGE_COMMON_H_ */
+    if (auto handle = w_handle.lock()) {
+        return handle;
+    } else {
+        static std::mutex construction_mtx;
+        std::lock_guard lock(construction_mtx);
+
+        if (handle = w_handle.lock()) {
+            return handle;
+        }
+
+        handle = std::make_shared<UpZenohClient>(ConstructToken());
+        if (handle->rpcSuccess_.code() == UCode::OK && handle->uSuccess_.code() == UCode::OK) {
+            w_handle = handle;
+            return handle;
+        } else {
+            spdlog::error("failed to get instance");
+            return nullptr;
+        }
+    }
+}

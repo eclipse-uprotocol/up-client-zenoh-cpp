@@ -28,9 +28,9 @@ find_package(GTest REQUIRED)
 find_package(spdlog REQUIRED)
 
 # include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../)
-add_executable(main_test
-	src/main_test.cpp)
-target_link_libraries(main_test 
+add_executable(testRpcClient
+	src/testRpcClient.cpp)
+target_link_libraries(testRpcClient 
 	PUBLIC
 		up-client-zenoh-cpp::up-client-zenoh-cpp
         spdlog::spdlog
@@ -40,4 +40,4 @@ target_link_libraries(main_test
 		pthread
 )
 
-add_test("t-18-main_test" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/main_test)
+add_test("t-18-testRpcClient" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testRpcClient)

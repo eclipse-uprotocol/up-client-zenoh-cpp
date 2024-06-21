@@ -17,6 +17,9 @@ find_package(spdlog REQUIRED)
 find_package(up-core-api REQUIRED)
 find_package(up-cpp REQUIRED)
 find_package(zenohc REQUIRED)
+find_package(zenohcxx REQUIRED zenohc::lib)
+find_package(GTest REQUIRED)
+include(GoogleTest)
 
 # TODO NEEDED?
 #add_definitions(-DSPDLOG_FMT_EXTERNAL)
@@ -42,6 +45,7 @@ target_include_directories(${PROJECT_NAME}
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 	$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
 	${zenohc_INCLUDE_DIR}
+	${zenohcxx_INCLUDE_DIR}
 	${up-cpp_INCLUDE_DIR}
 	${up-core-api_INCLUDE_DIR}
 	${protobuf_INCLUDE_DIR}
@@ -52,9 +56,11 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE
 	zenohc::lib
+	zenohcxx::zenohc::lib
 	up-cpp::up-cpp
 	up-core-api::up-core-api
 	protobuf::libprotobuf
+	GTest::gtest_main
 	spdlog::spdlog)
 
 enable_testing()

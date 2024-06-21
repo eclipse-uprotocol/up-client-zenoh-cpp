@@ -24,6 +24,7 @@ function(add_coverage_test Name)
         up-cpp::up-cpp
         up-cpp::up-transport-zenoh-cpp
         zenohc::lib
+        zenohcxx::zenohc::lib
         spdlog::spdlog
         protobuf::protobuf
         PRIVATE
@@ -31,7 +32,16 @@ function(add_coverage_test Name)
         GTest::gmock
         pthread
     )
-    target_include_directories(${Name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+    target_include_directories(${Name}
+		PRIVATE
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+		${zenohc_INCLUDE_DIR}
+		${zenohcxx_INCLUDE_DIR}
+		${up-cpp_INCLUDE_DIR}
+		${up-core-api_INCLUDE_DIR}
+		${protobuf_INCLUDE_DIR}
+		${spdlog_INCLUDE_DIR}
+	)
     gtest_discover_tests(${Name} XML_OUTPUT_DIR results)
 endfunction()
 
